@@ -24,11 +24,18 @@ public class playerScript : MonoBehaviour
     if (Input.GetKey(KeyCode.A)) { moveX = -1; }
     else if (Input.GetKey(KeyCode.D)) { moveX = 1; }
     else { moveX = 0; }
-}
 
+    
+}
     // Update is called fixed amount of times
     void FixedUpdate()
     {
        rb.linearVelocity = new Vector2(moveX, moveY).normalized * moveSpeed;
+       
+       // curosr lookup
+       Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+       Vector2 lookDir = mousePos - transform.position;
+       float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+       rb.rotation = angle;
     }
 }
